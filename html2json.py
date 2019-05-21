@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 dic = dict()
 from lxml import etree
+
 itt = 0
 
 
@@ -10,11 +11,11 @@ def list_tree_names(node):
     global itt
     for child in node.contents:
         try:
-            dic.update({child.name +"/"+ str(itt): child.attrs})
+            dic.update({child.name + "/" + str(itt): child.attrs})
             itt += 1
             list_tree_names(node=child)
         except:
-            dic.update({"text" +"/"+ str(itt): child})
+            dic.update({"text" + "/" + str(itt): child})
             itt += 1
 
 
@@ -25,4 +26,7 @@ list_tree_names(soup)
 #     dic.update({item.name + str(itt): item.attrs})
 #     itt += 1
 
-print(dic)
+import json
+
+with open('result.json', 'w') as fp:
+    json.dump(dic, fp)
